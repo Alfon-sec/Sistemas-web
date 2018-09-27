@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Operaciones basicas</title>
+    <style>
+    body {
+
+        font-family: Arial, sans-serif;
+
+        background-color:coral;
+    }
+    </style>
+</head>
+
+<body>
+    <h1 align="center"> <BIG><i>Vamos a calcular</i></BIG></h1>
+    <h2>A&ntilde;ade dos numeros enteros</h2>
+    <form name=operacion>
+        <input type="text" name="x" id="x">
+        <input type="text" name="y" id="y">
+        <h2>Selecciona operador</h2>
+        <select name=operador id="operador">
+            <option value="+"> + </option>
+            <option value="-"> - </option>
+            <option value="*"> * </option>
+            <option value="/"> / </option>
+        </select>
+        <h2>indica la solucion</h2>
+        <input type="text" name="solucion" onchange="operar()" id="solucion" />
+        <input type="reset" value="Limpiar" />
+        <br/>
+        <br/>
+        <input type="text" name=""id="resultado" disabled/>
+    </form>
+    <script>
+    function operar() {
+        var x = parseInt(document.getElementById("x").value);
+        var y = parseInt(document.getElementById("y").value);
+        var solucion = parseInt(document.getElementById("solucion").value);
+
+        var selectOperando = document.getElementById("operador");
+        var operador = selectOperando.options[selectOperando.selectedIndex].value;
+
+        var operacion;
+        if (operador == "+") {
+            operacion = x + y;
+            console.log("+")
+
+        } else if (operador == "-") {
+            operacion = x - y;
+            console.log("-")
+        } else if (operador == "*") {
+            operacion = x * y;
+            //alert("x")
+
+        } else {
+            operacion = x / y;
+            //alert("/")
+        }
+
+        if (operacion == solucion) {
+            document.getElementById("resultado").value = "Correcto"
+            document.getElementById("resultado").style.backgroundColor = "green";
+
+            document.getElementById("resultado").style.color = "white";
+        } else {
+            document.getElementById("resultado").value = "Incorrecto"
+            document.getElementById("resultado").style.backgroundColor = "red";
+            document.getElementById("resultado").style.color = "black";
+
+
+        }
+    }
+    </script>
+</body>
+</html
