@@ -12,6 +12,7 @@
         background-color:coral;
     }
     </style>
+
 </head>
 
 <body>
@@ -28,51 +29,49 @@
             <option value="/"> / </option>
         </select>
         <h2>indica la solucion</h2>
-        <input type="text" name="solucion" onchange="operar()" id="solucion" />
-        <input type="reset" value="Limpiar" />
+        <input type="text" name="solucion" id="solucion" />
+        <button id="limpiar">Limpiar</button>
         <br/>
         <br/>
         <input type="text" name=""id="resultado" disabled/>
     </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
-    function operar() {
-        var x = parseInt(document.getElementById("x").value);
-        var y = parseInt(document.getElementById("y").value);
-        var solucion = parseInt(document.getElementById("solucion").value);
-
-        var selectOperando = document.getElementById("operador");
-        var operador = selectOperando.options[selectOperando.selectedIndex].value;
-
+     $("#solucion").change(function(){
+     	escorrecto();
+     });
+     function escorrecto(){
+     	//alert("aa");
+     	var x = parseInt($("#x").val());
+        var y = parseInt($("#y").val());
+        var solucion = parseInt($("#solucion").val());
+        var operador = $("#operador").val();
         var operacion;
         if (operador == "+") {
             operacion = x + y;
-            console.log("+")
-
         } else if (operador == "-") {
             operacion = x - y;
-            console.log("-")
         } else if (operador == "*") {
             operacion = x * y;
-            //alert("x")
-
         } else {
             operacion = x / y;
-            //alert("/")
         }
-
         if (operacion == solucion) {
-            document.getElementById("resultado").value = "Correcto"
-            document.getElementById("resultado").style.backgroundColor = "green";
+            $('#resultado').val('correcto');
+            $('#resultado').css('background','green');
+            $('#resultado').css('color','white');
+      	  }
+         else {
+         	console.log("ee");
+            $('#resultado').val('incorrecto');
+            $('#resultado').css('background','red');
+            $('#resultado').css('color','black');
+       	 }
+       	}
 
-            document.getElementById("resultado").style.color = "white";
-        } else {
-            document.getElementById("resultado").value = "Incorrecto"
-            document.getElementById("resultado").style.backgroundColor = "red";
-            document.getElementById("resultado").style.color = "black";
-
-
-        }
-    }
+     $("#limpiar").on("click",function(){
+            $('input[type="text"]').val('');
+      } );
     </script>
 </body>
 </html>
