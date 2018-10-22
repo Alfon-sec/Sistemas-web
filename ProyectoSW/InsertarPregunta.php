@@ -1,6 +1,6 @@
 <?php 
 
-$local=1; //0 para la aplicación en 000WebHost
+$local=0; //0 para la aplicación en 000WebHost
 if ($local==1){
 $server="localhost";
 $user="root";
@@ -10,8 +10,8 @@ $basededatos="Quiz";
 else{
 $server="localhost";
 $user="usuario de la BD en 000WebHost";
-$pass="contraseña de la BD en 000WebHost";
-$basededatos="nombre de la BD en 000WebHost";
+$pass="isomendar69";
+$basededatos="Quiz";
 }
 
 $conn = new mysqli($server, $user, $pass, $basededatos);
@@ -31,10 +31,9 @@ if($conn -> connect_error){
 $insertar="INSERT INTO Preguntas (Nombre, Enunciado, Respuesta_Correcta, Respuesta_Incorrecta1, Respuesta_Incorrecta2, Respuesta_Incorrecta3, Complejidad, Tema) VALUES ('$correo','$Pregunta', '$RC', '$RI1', '$RI2', '$RI3', '$Complejidad', '$tema')";
 
 if($conn->query($insertar)==true){
-	echo "insertado con exito";
+	include("VerPreguntas.php");
 }
 else{
 	echo("error al insertarlo");
 }
-$conn->close();	
 ?>
