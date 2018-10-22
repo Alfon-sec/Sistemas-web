@@ -25,15 +25,20 @@ $Complejidad=$_GET['complejidad'];
 $tema=$_GET['tema'];
 
 if($conn -> connect_error){
-	die("Conexion fallida" . $conn->connect_error);
+	//die("Conexion fallida" . $conn->connect_error);
+	echo("error al conectarse");
+	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
 }
 
 $insertar="INSERT INTO Preguntas (Nombre, Enunciado, Respuesta_Correcta, Respuesta_Incorrecta1, Respuesta_Incorrecta2, Respuesta_Incorrecta3, Complejidad, Tema) VALUES ('$correo','$Pregunta', '$RC', '$RI1', '$RI2', '$RI3', '$Complejidad', '$tema')";
 
 if($conn->query($insertar)==true){
-	include("VerPreguntas.php");
+	echo("Insertado con exito");
+	echo'<span><a href="VerPreguntas.php">Ver las preguntas</a></spam>';
+	//include("VerPreguntas.php");
 }
 else{
 	echo("error al insertarlo");
+	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
 }
 ?>
