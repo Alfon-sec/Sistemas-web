@@ -9,9 +9,9 @@ $basededatos="Quiz";
 }
 else{
 $server="localhost";
-$user="usuario de la BD en 000WebHost";
+$user="id7157936_preguntas";
 $pass="isomendar69";
-$basededatos="Quiz";
+$basededatos="d7157936_quiz";
 }
 
 $conn = new mysqli($server, $user, $pass, $basededatos);
