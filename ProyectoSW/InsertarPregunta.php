@@ -1,6 +1,6 @@
 <?php 
 
-$local=0; //0 para la aplicación en 000WebHost
+$local=1; //0 para la aplicación en 000WebHost
 if ($local==1){
 $server="localhost";
 $user="root";
@@ -11,7 +11,7 @@ else{
 $server="localhost";
 $user="id7157936_preguntas";
 $pass="isomendar69";
-$basededatos="id7157936_quiz";
+$basededatos="d7157936_quiz";
 }
 
 $conn = new mysqli($server, $user, $pass, $basededatos);
@@ -29,9 +29,13 @@ if($conn -> connect_error){
 	echo("error al conectarse");
 	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
 }
-
-$insertar="INSERT INTO Preguntas (Nombre, Enunciado, Respuesta_Correcta, Respuesta_Incorrecta1, Respuesta_Incorrecta2, Respuesta_Incorrecta3, Complejidad, Tema) VALUES ('$correo','$Pregunta', '$RC', '$RI1', '$RI2', '$RI3', '$Complejidad', '$tema')";
-
+if((preg_match("/^[a-z A-Z]+([0-9]{3})+@ikasle.ehu.eus$/",$correo))&&(preg_match("/^([0-5]{1})$/",$Complejidad))&&(!empty($Pregunta))&&(!empty($RC))&&(!empty($RI1))&&(!empty($RI2))&&(!empty($RI3))&&(!empty($tema))){
+		$insertar="INSERT INTO Preguntas (Nombre, Enunciado, Respuesta_Correcta, Respuesta_Incorrecta1, Respuesta_Incorrecta2, Respuesta_Incorrecta3, Complejidad, Tema) VALUES ('$correo','$Pregunta', '$RC', '$RI1', '$RI2', '$RI3', '$Complejidad', '$tema')";
+ }
+else{
+ 	echo("error uno de los campos no se ha rellenado correctamente");
+ 	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
+ }
 if($conn->query($insertar)==true){
 	echo("Insertado con exito");
 	echo'<span><a href="VerPreguntas.php">Ver las preguntas</a></spam>';

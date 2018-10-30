@@ -1,5 +1,5 @@
 <?php
-$local=0; //0 para la aplicación en 000WebHost
+$local=1; //0 para la aplicación en 000WebHost
 if ($local==1){
 $server="localhost";
 $user="root";
@@ -10,7 +10,7 @@ else{
 $server="localhost";
 $user="id7157936_preguntas";
 $pass="isomendar69";
-$basededatos="id7157936_quiz";
+$basededatos="d7157936_quiz";
 }
 
 $conn = new mysqli($server, $user, $pass, $basededatos);
@@ -19,7 +19,7 @@ if (!$conn)
 	die ("Fallo al conectar a MySQL: " . mysqli_connect_error());
 }
 
-$query= 'SELECT * FROM preguntas';
+$query= 'SELECT * FROM Preguntas';
 $resultado=mysqli_query($conn,$query);
 
 echo '<table border=1> <tr> <th> Nombre </th> <th> Pregunta </th> <th> RC </th> <th> RI1 </th> <th> RI2 </th> <th> RI3 </th> <th> Complejidad </th> <th> Tema </th> </tr>';
