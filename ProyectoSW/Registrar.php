@@ -11,7 +11,7 @@
                                     $server="localhost";
                                     $user="id7157936_preguntas";
                                     $pass="isomendar69";
-                                    $basededatos="d7157936_quiz";
+                                    $basededatos="id7157936_quiz";
                                 }
                                 $conn = new mysqli($server, $user, $pass, $basededatos);
                                 if($conn -> connect_error){
@@ -39,7 +39,7 @@
     <title>Registrar</title>
 </head>
 <body>
-<form action="" method="POST"> 
+<form action="Registrar.php" method="POST"> 
     <label>Email*:</label>
     <input type="text" name="email" id="email" maxlength="50"><br>
     <label>Nombre y apellidos*:</label>

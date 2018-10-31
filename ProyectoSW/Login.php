@@ -11,7 +11,7 @@ if(isset($_POST["correo"])&&isset($_POST["contra"])){
         $server="localhost";
         $user="id7157936_preguntas";
         $pass="isomendar69";
-        $basededatos="d7157936_quiz";
+        $basededatos="id7157936_quiz";
     }
 
     $conn = new mysqli($server, $user, $pass, $basededatos);
@@ -45,7 +45,7 @@ else{
     <title>Registrar</title>
 </head>
 <body>
-<form action="" method="POST"> 
+<form action="Login.php" method="POST"> 
     <h1 align="center"> Login </h1><br>
     <li>
     <label>Direccion de correo*:</label>
