@@ -23,8 +23,9 @@
                                 $nombre=trim($_POST["nombre"]);
                                 $insertar="INSERT INTO usuarios(Email, Nombre, Pass) VALUES('$email', '$nombre', '$contraseña')";
                                 if($conn->query($insertar)==true){
-                              		 echo("<script> alert ('BIENVENIDO AL SISTEMA:". $nombre . "')</script>");
-									echo ("Login correcto<p><a href=layout.html?op=usuario>Puede insertar preguntas</a>");}
+                                    //header('Location: layout.html?op=usuario');
+                                    echo"<a href='layout.html?op=usuario'>Acceso a los usuarios</a>";
+                                }
                                 else{
                                 	 echo("No Insertado con exito");
                                 }

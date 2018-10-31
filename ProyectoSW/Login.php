@@ -30,8 +30,7 @@ if(isset($_POST["correo"])&&isset($_POST["contra"])){
         echo "Error datos incorrectos"; 
     }
     else{
-        echo "bienvenido";
-        echo ("Login correcto<p><a href=layout.html?op=usuario>Puede insertar preguntas</a>");
+        header('Location: layout.html?op=usuario');
     }
     $resultado->close();
     mysqli_close($conn);
