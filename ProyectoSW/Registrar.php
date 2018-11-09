@@ -10,7 +10,7 @@
                                 else{
                                     $server="localhost";
                                     $user="id7157936_preguntas";
-                                    $pass="isomendar69";
+                                    $pass="xxxxxxxxx";
                                     $basededatos="id7157936_quiz";
                                 }
                                 $conn = new mysqli($server, $user, $pass, $basededatos);
