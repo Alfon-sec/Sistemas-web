@@ -10,7 +10,7 @@ $basededatos="Quiz";
 else{
 $server="localhost";
 $user="id7157936_preguntas";
-$pass="xxxxxxxxx";
+$pass="isomendar69";
 $basededatos="id7157936_quiz";
 }
 
@@ -27,7 +27,7 @@ $tema=$_GET['tema'];
 if($conn -> connect_error){
 	//die("Conexion fallida" . $conn->connect_error);
 	echo("error al conectarse");
-	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
+	echo'<span><a href="layout.html?op=usuario">Volver</a></spam>';
 }
 if((preg_match("/^[a-z A-Z]+([0-9]{3})+@ikasle.ehu.eus$/",$correo))&&(preg_match("/^([0-5]{1})$/",$Complejidad))&&(!empty($Pregunta))&&(!empty($RC))&&(!empty($RI1))&&(!empty($RI2))&&(!empty($RI3))&&(!empty($tema))){
 		$insertar="INSERT INTO Preguntas (Nombre, Enunciado, Respuesta_Correcta, Respuesta_Incorrecta1, Respuesta_Incorrecta2, Respuesta_Incorrecta3, Complejidad, Tema) VALUES ('$correo','$Pregunta', '$RC', '$RI1', '$RI2', '$RI3', '$Complejidad', '$tema')";
@@ -48,25 +48,26 @@ if((preg_match("/^[a-z A-Z]+([0-9]{3})+@ikasle.ehu.eus$/",$correo))&&(preg_match
 		$incorrectResponse->addChild('value', $RI3);
 
 		$xml->asXML();
-		 if(($xml->asXML('preguntas.xml'))==FALSE){
-		 	echo("error al insertar los datos en xml");
+		 if((($xml->asXML('preguntas.xml'))==FALSE)OR($conn->query($insertar)==FALSE)){
+		 	echo("error al insertar los datos en xml o en la BD");
+		 	echo'<span><a href="layout.html?op=usuario">Volver</a></spam>';
 		 }
 		 else{
-			echo("xml insertado con exito");
-			echo'<span><a href="VerPreguntasXML.php">Ver las preguntas en xml</a></spam>';	
+			//echo("insertado con exito");
+			//echo'<span><a href="VerPreguntasXML.php">Ver las preguntas en xml</a></spam>';	
 		}
  }
 else{
  	echo("error uno de los campos no se ha rellenado correctamente");
- 	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
+ 	echo'<span><a href="layout.html?op=usuario">Volver</a></spam>';
  }
-if($conn->query($insertar)==true){
-	echo("Insertado con exito");
-	echo'<span><a href="VerPreguntas.php">Ver las preguntas</a></spam>';
+#if($conn->query($insertar)==true){
+	#echo("Insertado con exito");
+	#echo'<span><ahref="layout.html?op=usuario">Insertado con exito</a></spam>';
 	//include("VerPreguntas.php");
-}
-else{
-	echo("error al insertarlo");
-	echo'<span><a href="pregunta.html">Insertar Pregunta</a></spam>';
-}
+#}
+#else{
+#	echo("error al insertarlo");
+#	echo'<span><a href="layout.html?op=usuario">Volver</a></spam>';
+#}
 ?>
