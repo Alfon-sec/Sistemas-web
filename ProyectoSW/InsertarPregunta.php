@@ -9,8 +9,8 @@ $basededatos="Quiz";
 }
 else{
 $server="localhost";
-$user="id7157936_preguntas";
-$pass="isomendar69";
+$user="XXXXXXXXXX";
+$pass="XXXXXX";
 $basededatos="id7157936_quiz";
 }
 
