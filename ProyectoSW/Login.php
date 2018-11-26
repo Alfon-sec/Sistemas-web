@@ -1,19 +1,6 @@
 <?php
 if(isset($_POST["correo"])&&isset($_POST["contra"])){
-    $local=1; //0 para la aplicación en 000WebHost
-    if ($local==1){
-        $server="localhost";
-        $user="root";
-        $pass="isomendar69";
-        $basededatos="Quiz";
-    }
-    else{
-        $server="localhost";
-        $user="id7157936_preguntas";
-        $pass="isomendar69";
-        $basededatos="id7157936_quiz";
-    }
-
+    include 'servidor.php';
     $conn = new mysqli($server, $user, $pass, $basededatos);
     if (!$conn)
     {
@@ -30,7 +17,7 @@ if(isset($_POST["correo"])&&isset($_POST["contra"])){
         echo "Error datos incorrectos"; 
     }
     else{
-        header('Location: layout.html?op=usuario');
+        header('Location: layout.php?op=usuario&correo='.$correo.'');
     }
     $resultado->close();
     mysqli_close($conn);

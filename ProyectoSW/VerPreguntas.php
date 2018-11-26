@@ -1,17 +1,5 @@
 <?php
-$local=1; //0 para la aplicación en 000WebHost
-if ($local==1){
-$server="localhost";
-$user="root";
-$pass="isomendar69";
-$basededatos="Quiz";
-}
-else{
-$server="localhost";
-$user="xxxxxxxx";
-$pass="xxxxx";
-$basededatos="id7157936_quiz";
-}
+include 'servidor.php';
 
 $conn = new mysqli($server, $user, $pass, $basededatos);
 if (!$conn)

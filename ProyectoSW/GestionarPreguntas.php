@@ -1,4 +1,5 @@
  <?php
+ $correo=$_GET['correo'];
  ?>
  <!DOCTYPE html>
 <html>
@@ -24,12 +25,13 @@
 								//$(location).attr('href','prueba.php');
 								var str=$("#fpreguntas").serialize();
 								$.ajax({
-									url: 'InsertarPregunta.php?'+str,
+									url: 'InsertarPregunta.php',
+									data: str,
 									beforeSend:function(){
-										$("#resultado").load("VerPreguntasXML.php");
+										$('#resultado').html('<img src="load.gif" height="50"/>')
 									},
 									success:function(){
-										$("#resultado").load("VerPreguntasXML.php");
+										$("#resultado").load("VerPreguntasXML.php?correo="+"<?php echo "$correo"?>");
 									},
 									error:function(){
 										$('#resultado').fadeIn().html('<p class="error"><strong>El servidor parece que no responde</p>');
@@ -71,15 +73,16 @@ obj.innerHTML = XMLHttpRequestObject.responseText;}
 }
 function pedirDatos()
 {
-XMLHttpRequestObject.open("GET",'VerPreguntasXML.php');
-XMLHttpRequestObject.send(null);
+XMLHttpRequestObject.open("GET",'VerPreguntasXML.php?correo='+'<?php echo "$correo" ?>',true);
+XMLHttpRequestObject.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+XMLHttpRequestObject.send();
 }
 </script> 
 
 
 </head>
 <body>
-<form id="fpreguntas" name='fpreguntas' action='InsertarPregunta.php'>
+<form id="fpreguntas" name='fpreguntas'>
 
 <input type="button" id="enviar" value="enviar"onclick ="mandarDatos()">
 <input type="button" id="ver_preguntas" value="ver_preguntas"onclick ="pedirDatos()">
@@ -89,7 +92,7 @@ XMLHttpRequestObject.send(null);
 
  <li>
      <label>Direccion de correo*:</label>
-     <input type="text" name="correo" id="correo" placeholder="correo" >
+     <input type="text" name="correo" id="correo" value= '<?php echo "$correo"?>' >
 </li><br>
 
  <li>

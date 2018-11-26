@@ -1,37 +1,32 @@
  <?php
-    if(isset($_POST["email"])&&isset($_POST["nombre"])&&isset($_POST["password"])){
-                                $local=1; //0 para la aplicación en 000WebHost
-                                 if ($local==1){
-                                    $server="localhost";
-                                    $user="root";
-                                    $pass="isomendar69";
-                                    $basededatos="quiz";
-                                }
-                                else{
-                                    $server="localhost";
-                                    $user="xxxxxxxxxxxxx";
-                                    $pass="xxxxxxxxx";
-                                    $basededatos="id7157936_quiz";
-                                }
+    if((isset($_POST["email"]))&&(isset($_POST["nombre"])&&isset($_POST["password"]))){                                
+                                include 'servidor.php';
                                 $conn = new mysqli($server, $user, $pass, $basededatos);
-                                if($conn -> connect_error){
+                                if($conn -> connect_error)
+                                {
                                 //die("Conexion fallida" . $conn->connect_error);
                                 echo("error al conectarse");
                                 }
+
                                 $email=trim($_POST["email"]);
                                 $contraseña=trim($_POST["password"]);
                                 $nombre=trim($_POST["nombre"]);
-                                $insertar="INSERT INTO usuarios(Email, Nombre, Pass) VALUES('$email', '$nombre', '$contraseña')";
-                                if($conn->query($insertar)==true){
+                               
+                                     $insertar="INSERT INTO usuarios(Email, Nombre, Pass) VALUES('$email', '$nombre', '$contraseña')";
+                                     if($conn->query($insertar)==true){
                                     //header('Location: layout.html?op=usuario');
-                                    echo"<a href='layout.html?op=usuario'>Acceso a los usuarios</a>";
-                                }
-                                else{
-                                	 echo("No Insertado con exito");
-                                }
-                              
-    }
-    else{
+                                          echo"<a href='layout.php?op=usuario&correo=".$email."'>Acceso a los usuarios</a>";
+                                    #&correo="+$email+
+                                    }
+                                     else{
+                                       echo("No Insertado con exito");
+                                     }
+                
+
+    }  
+else{
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,7 +35,7 @@
     <title>Registrar</title>
 </head>
 <body>
-<form action="Registrar.php" method="POST"> 
+<form id="reg" name="reg" action="Registrar.php" method="POST"> 
     <label>Email*:</label>
     <input type="text" name="email" id="email" maxlength="50"><br>
     <label>Nombre y apellidos*:</label>
@@ -50,25 +45,76 @@
     <label>Repetir Contraseña*:</label>
     <input type="password" name="password2" id="password2"><br>
     <label>Botón de enviar</label>
-    <input type="submit" value="submit" id="submit"><br>
-
+    <input type="submit" value="submit" id="submit"disabled><br>
     <input type="text" id="validacion" size= "100" disabled/>
+
+    <script>
+        var boton=1;
+       document.getElementById("email").onblur = function() {return checkEmail()};
+        function checkEmail() {
+          var correo = document.getElementById("email").value;
+          var xmlhttp = new XMLHttpRequest();
+
+          xmlhttp.onreadystatechange = function() {
+            
+            if ( xmlhttp.readyState == 4 &&  xmlhttp.status == 200) {
+              alert(xmlhttp.responseText);
+              var response = (xmlhttp.responseText);
+              if (response == "Correcto" )
+              {   
+                alert("bien");    
+              }
+              else{
+                alert("mal");
+              }
+
+            }
+            };
+            xmlhttp.open('GET', 'Correo_Valido.php?correo=' + correo, true);
+          xmlhttp.send();
+        }
+
+       document.getElementById("password").onblur = function() {return checkpass()};
+        function checkpass() {
+          var contraseña = document.getElementById("password").value;
+          var xmlhttp = new XMLHttpRequest();
+
+          xmlhttp.onreadystatechange = function() {
+            
+            if (this.readyState == 4 && this.status == 200) {
+              alert(this.responseText);
+              var var3=this.responseText;
+              if(var3.localeCompare("VALIDA")){
+                 document.getElementById('submit').disabled=false;
+                 return true;
+              }
+              else{
+              document.getElementById('submit').disabled=true;
+              return false;
+              }
+
+              
+            }
+          };
+            xmlhttp.open('GET','Contrasena_Valida.php?contrasena=' + contraseña, true);
+          xmlhttp.send();
+        }
+
+    </script>  
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script>
-        var patronemail= /^[a-z A-Z]+([0-9]{3})+@ikasle.ehu.eus$/;
         var contra= /^([a-z A-Z0-9]{8,})$/;
         var nomb= /^(([a-z A-Z]{1,})+[\s]+([a-z A-Z]{1,}))$/;
+
     $("#submit").click(function(){
         return envia();
      });
+
      function envia(){
         if(($("#email").val()!='') &&($("#nombre").val()!='')&& ($("#password").val()!='')&&($("#paswword2").val()!='')){
             $('#validacion').val('');
-            $('#validacion').css('background','white');
-             if($('#email').val().match(patronemail)){
-                $('#validacion').val('');
-                $('#validacion').css('background','white');
+            $('#validacion').css('background','white');         
                 if($("#nombre").val().match(nomb)){
                      $('#validacion').val('');
                      $('#validacion').css('background','white');
@@ -77,7 +123,7 @@
                         $('#validacion').css('background','white');
                         if(($("#password").val())==($("#password2").val())){
                             $('#validacion').val('');
-                            $('#validacion').css('background','white'); 
+                            $('#validacion').css('background','white');
                         }
                         else{
                             $('#validacion').val('las contraseñas no coinciden');
@@ -99,13 +145,8 @@
                     $('#validacion').css('color','black');  
                      return false;
                 }
-            }
-            else{
-                     $('#validacion').val(' el correo tiene que tener formato EHU/UPV');
-                     $('#validacion').css('background','red');
-                    $('#validacion').css('color','black'); 
-                    return false;  
-            }
+            
+
         }
          else{
                 $('#validacion').val(' completa todos los campos obligatorios');
@@ -115,7 +156,7 @@
          }
                     
     }
-    </script>
+</script>
 </form>
 </body>
 </html>
