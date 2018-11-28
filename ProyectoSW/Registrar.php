@@ -47,9 +47,10 @@ else{
     <label>Botón de enviar</label>
     <input type="submit" value="submit" id="submit"disabled><br>
     <input type="text" id="validacion" size= "100" disabled/>
+    <input type="text" id="correoval" size= "100" disabled/>
+    <input type="text" id="contrasenamal" size= "100" disabled/>
 
     <script>
-        var boton=1;
        document.getElementById("email").onblur = function() {return checkEmail()};
         function checkEmail() {
           var correo = document.getElementById("email").value;
@@ -59,16 +60,21 @@ else{
             
             if ( xmlhttp.readyState == 4 &&  xmlhttp.status == 200) {
               alert(xmlhttp.responseText);
-              var response = (xmlhttp.responseText);
-              if (response == "Correcto" )
+              var response = xmlhttp.responseText;
+              if (response.trim()==="Correcto")
               {   
-                alert("bien");    
+                if(document.getElementById('contrasenamal').value=="contrasena_correcta"){
+                document.getElementById('submit').disabled=false;
+                } 
+                document.getElementById('correoval').value="correo_correcto";  
               }
               else{
-                alert("mal");
+                document.getElementById('correoval').value="correo_mal";
+                document.getElementById('submit').disabled=true;
               }
 
             }
+
             };
             xmlhttp.open('GET', 'Correo_Valido.php?correo=' + correo, true);
           xmlhttp.send();
@@ -84,15 +90,17 @@ else{
             if (this.readyState == 4 && this.status == 200) {
               alert(this.responseText);
               var var3=this.responseText;
-              if(var3.localeCompare("VALIDA")){
-                 document.getElementById('submit').disabled=false;
-                 return true;
+              if(var3.trim()==="VALIDA"){
+                if(document.getElementById('correoval').value=="correo_correcto")
+                {
+                document.getElementById('submit').disabled=false;
+                } 
+                document.getElementById('contrasenamal').value="contrasena_correcta";  
               }
               else{
-              document.getElementById('submit').disabled=true;
-              return false;
+                document.getElementById('contrasenamal').value="contrasena_incorrecta";
+                document.getElementById('submit').disabled=true;
               }
-
               
             }
           };
