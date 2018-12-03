@@ -1,5 +1,6 @@
  <?php
- $correo=$_GET['correo'];
+ include ("seguridad.php");
+ $correo=$_REQUEST['correo'];
  ?>
  <!DOCTYPE html>
 <html>

@@ -1,6 +1,8 @@
 <?php
-if(isset($_GET["correo"])){
-		$correo=$_GET['correo'];
+
+include ("seguridad.php");
+if(isset($_REQUEST["correo"])){
+		$correo=$_REQUEST['correo'];
 }
 else{
 $correo=0;
@@ -33,7 +35,8 @@ $correo=0;
 	<nav class='main' id='n1' role='navigation'>
 		<span><a href=" ">Inicio</a></spam>
 		<span><a href='creditos.html'id= 'Creditos'>Creditos</a></spam>
-		<span><a href='<?php echo("GestionarPreguntas.php?correo=$correo"); ?>' id= 'pregunta'>Gestionar Preguntas</a></spam>  
+		<span><a href='<?php echo("GestionarPreguntas.php?correo=$correo"); ?>' id= 'pregunta'>Gestionar Preguntas</a></spam> 
+		<span><a href='<?php echo("GestionarCuentas.php?correo=$correo"); ?>' id= 'Upregunta'>Gestionar Correos</a></spam>  
 	</nav>
     <section class="main" id="s1">
     
@@ -74,7 +77,14 @@ $correo=0;
      function averpreguntas(){
 		$('#capa').load($("#Vpregunta").attr("href"));
 	}
-
+	 $("#Upregunta").click(function(){
+     	averusuarios();
+     	return false;
+       });
+     
+     function averusuarios(){
+		$('#capa').load($("#Upregunta").attr("href"));
+	}
 	$("#REG").click(function(){
      	areg();
      	return false;
@@ -104,14 +114,25 @@ $correo=0;
 	}
 
 		params = (new URL(document.location.href)).searchParams;
-		$op = params.get("op"); 
+		$op = params.get("op");
+		$cor= params.get("correo");
 		if($op=="usuario"){
 			 alert ('BIENVENIDO');
 			document.getElementById("IN").style="display:none;";
 			document.getElementById("OUT").style="display:block;";
-			document.getElementById("pregunta").style="display:block;";
+			if($cor=="admin@ikasle.ehu")
+			{
+			document.getElementById("Upregunta").style="display:block;";
 			document.getElementById("REG").style="display:none;";
 			document.getElementById("NOM").style="display:block;";
+			document.getElementById("pregunta").style="display:none;";	
+			}
+			else{
+			document.getElementById("REG").style="display:none;";
+			document.getElementById("NOM").style="display:block;";
+			document.getElementById("pregunta").style="display:block;";	
+			document.getElementById("Upregunta").style="display:none;";
+			}
 		}
 		else{
 			document.getElementById("OUT").style="display:none;";
@@ -119,6 +140,7 @@ $correo=0;
 			document.getElementById("pregunta").style="display:none;";
 			document.getElementById("IN").style="display:block;"
 			document.getElementById("REG").style="display:block;"
+			document.getElementById("Upregunta").style="display:none;";
 		}
 	</script>
 </body>

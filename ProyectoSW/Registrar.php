@@ -1,5 +1,6 @@
  <?php
-    if((isset($_POST["email"]))&&(isset($_POST["nombre"])&&isset($_POST["password"]))){                                
+ include ("seguridad.php");
+    if((isset($_REQUEST["email"]))&&(isset($_REQUEST["nombre"])&&isset($_REQUEST["password"]))){                                
                                 include 'servidor.php';
                                 $conn = new mysqli($server, $user, $pass, $basededatos);
                                 if($conn -> connect_error)
@@ -8,9 +9,9 @@
                                 echo("error al conectarse");
                                 }
 
-                                $email=trim($_POST["email"]);
-                                $contraseña=trim($_POST["password"]);
-                                $nombre=trim($_POST["nombre"]);
+                                $email=trim($_REQUEST["email"]);
+                                $contraseña=trim($_REQUEST["password"]);
+                                $nombre=trim($_REQUEST["nombre"]);
                                
                                      $insertar="INSERT INTO usuarios(Email, Nombre, Pass) VALUES('$email', '$nombre', '$contraseña')";
                                      if($conn->query($insertar)==true){

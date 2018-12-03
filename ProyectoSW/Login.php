@@ -1,25 +1,28 @@
 <?php
-if(isset($_POST["correo"])&&isset($_POST["contra"])){
+if(isset($_REQUEST["correo"])&&isset($_REQUEST["contra"])){
     include 'servidor.php';
     $conn = new mysqli($server, $user, $pass, $basededatos);
     if (!$conn)
     {
         die ("Fallo al conectar a MySQL: " . mysqli_connect_error());
     }
-    $correo=$_POST['correo'];
-    $contra=$_POST['contra'];
+    $correo=$_REQUEST['correo'];
+    $contra=$_REQUEST['contra'];
     $query= "SELECT * FROM usuarios WHERE Email='$correo' AND Pass='$contra'";
-    $resultado=mysqli_query($conn,$query);
-    if (!$resultado) { 
+    $result=mysqli_query($conn, $query);
+    $row= mysqli_fetch_array($result); 
+   if (mysqli_num_rows($result) == 0) { 
          echo "Error consultando a la base de datos ";
     }
-    else if (empty($resultado)) { 
-        echo "Error datos incorrectos"; 
+    else if ($row['Bloqueado'] == 1) { 
+        echo "Error Bloqueado"; 
     }
     else{
+    	session_start();
+		$_SESSION["autentificado"]= "SI";
         header('Location: layout.php?op=usuario&correo='.$correo.'');
     }
-    $resultado->close();
+    $result->close();
     mysqli_close($conn);
 }
 else{
@@ -50,6 +53,7 @@ else{
      });
      function envia(){
           if(($("#email").val()!='') &&($("#contraseña").val()!='')){
+            
             return true;
           }
           else{

@@ -1,5 +1,5 @@
 <?php
-
+include ("seguridad.php");
 //incluimos la clase nusoap.php
 require_once('../../nusoap-0.9.5/lib/nusoap.php');
 require_once('../../nusoap-0.9.5/lib/class.wsdlcache.php');

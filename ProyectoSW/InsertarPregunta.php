@@ -1,4 +1,5 @@
 <?php 
+include ("seguridad.php");
 include 'servidor.php';
 $conn = new mysqli($server, $user, $pass, $basededatos);
 $correo=$_REQUEST['correo'];

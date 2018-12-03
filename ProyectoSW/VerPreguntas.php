@@ -1,6 +1,6 @@
 <?php
 include 'servidor.php';
-
+include ("seguridad.php");
 $conn = new mysqli($server, $user, $pass, $basededatos);
 if (!$conn)
 {

@@ -1,4 +1,5 @@
 <?php
+include ("seguridad.php");
 $contraseña=$_GET['contrasena'];
 require_once('../../nusoap-0.9.5/lib/nusoap.php');
 require_once('../../nusoap-0.9.5/lib/class.wsdlcache.php');
