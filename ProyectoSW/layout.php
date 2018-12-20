@@ -1,8 +1,12 @@
 <?php
-
-include ("seguridad.php");
+session_start();
 if(isset($_REQUEST["correo"])){
+	if((!isset($_SESSION['email']))||(empty($_SESSION['email']))){
+		header('Location: layout.php?');
+	}
+	else{
 		$correo=$_REQUEST['correo'];
+	}
 }
 else{
 $correo=0;
@@ -36,7 +40,8 @@ $correo=0;
 		<span><a href=" ">Inicio</a></spam>
 		<span><a href='creditos.html'id= 'Creditos'>Creditos</a></spam>
 		<span><a href='<?php echo("GestionarPreguntas.php?correo=$correo"); ?>' id= 'pregunta'>Gestionar Preguntas</a></spam> 
-		<span><a href='<?php echo("GestionarCuentas.php?correo=$correo"); ?>' id= 'Upregunta'>Gestionar Correos</a></spam>  
+		<span><a href='<?php echo("GestionarCuentas.php?correo=$correo"); ?>' id= 'Upregunta'>Gestionar Correos</a></spam>
+		<span><a href='<?php echo("Cambiar_contrasena.php?"); ?>' id= 'MC'>Modificar Contraseña</a></spam>   
 	</nav>
     <section class="main" id="s1">
     
@@ -85,6 +90,22 @@ $correo=0;
      function averusuarios(){
 		$('#capa').load($("#Upregunta").attr("href"));
 	}
+	$("#MC").click(function(){
+     	MODC();
+     	return false;
+       });
+     
+     function MODC(){
+		$('#capa').load($("#MC").attr("href"));
+	}
+	$("#juego").click(function(){
+     	jugar();
+     	return false;
+       });
+     
+     function jugar(){
+		$('#capa').load($("#juego").attr("href"));
+	}
 	$("#REG").click(function(){
      	areg();
      	return false;
@@ -120,7 +141,8 @@ $correo=0;
 			 alert ('BIENVENIDO');
 			document.getElementById("IN").style="display:none;";
 			document.getElementById("OUT").style="display:block;";
-			if($cor=="admin@ikasle.ehu")
+			document.getElementById("MC").style="display:none;";
+			if($cor=="admin@ehu.eus")
 			{
 			document.getElementById("Upregunta").style="display:block;";
 			document.getElementById("REG").style="display:none;";
@@ -141,6 +163,7 @@ $correo=0;
 			document.getElementById("IN").style="display:block;"
 			document.getElementById("REG").style="display:block;"
 			document.getElementById("Upregunta").style="display:none;";
+			document.getElementById("MC").style="display:block;";
 		}
 	</script>
 </body>

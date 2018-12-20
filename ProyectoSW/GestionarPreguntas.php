@@ -1,6 +1,9 @@
  <?php
- include ("seguridad.php");
+ session_start();
  $correo=$_REQUEST['correo'];
+ if((!isset($_SESSION['email']))||(empty($_SESSION['email']))){
+		header('Location: layout.php?');
+	}
  ?>
  <!DOCTYPE html>
 <html>

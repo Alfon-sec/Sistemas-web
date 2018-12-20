@@ -1,5 +1,4 @@
  <?php
- include ("seguridad.php");
     if((isset($_REQUEST["email"]))&&(isset($_REQUEST["nombre"])&&isset($_REQUEST["password"]))){                                
                                 include 'servidor.php';
                                 $conn = new mysqli($server, $user, $pass, $basededatos);
@@ -13,11 +12,11 @@
                                 $contraseña=trim($_REQUEST["password"]);
                                 $nombre=trim($_REQUEST["nombre"]);
                                
-                                     $insertar="INSERT INTO usuarios(Email, Nombre, Pass) VALUES('$email', '$nombre', '$contraseña')";
+                                     $insertar="INSERT INTO usuarios(Email, Nombre, Pass) VALUES('$email', '$nombre', MD5('$contraseña'))";
                                      if($conn->query($insertar)==true){
-                                    //header('Location: layout.html?op=usuario');
-                                          echo"<a href='layout.php?op=usuario&correo=".$email."'>Acceso a los usuarios</a>";
-                                    #&correo="+$email+
+                                        session_start();
+                                        $_SESSION["email"]= $correo;
+                                        echo ("<a href=layout.php?op=usuario&correo=".$email.">Acceder</a>");
                                     }
                                      else{
                                        echo("No Insertado con exito");
@@ -52,6 +51,7 @@ else{
     <input type="text" id="contrasenamal" size= "100" disabled/>
 
     <script>
+
        document.getElementById("email").onblur = function() {return checkEmail()};
         function checkEmail() {
           var correo = document.getElementById("email").value;
@@ -65,12 +65,16 @@ else{
               if (response.trim()==="Correcto")
               {   
                 if(document.getElementById('contrasenamal').value=="contrasena_correcta"){
-                document.getElementById('submit').disabled=false;
-                } 
-                document.getElementById('correoval').value="correo_correcto";  
+                	document.getElementById('submit').disabled=false;
+                	} 
+                	document.getElementById('correoval').value="correo_correcto"; 
+              }
+              else if (response.trim()==="Correo_repetido"){
+                document.getElementById('correoval').value="correo_ya_registrado";
+                document.getElementById('submit').disabled=true;
               }
               else{
-                document.getElementById('correoval').value="correo_mal";
+              	document.getElementById('correoval').value="correo_mal";
                 document.getElementById('submit').disabled=true;
               }
 

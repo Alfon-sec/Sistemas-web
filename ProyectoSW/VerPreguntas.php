@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(isset($_REQUEST["correo"])){
+	if((!isset($_SESSION['email']))||(empty($_SESSION['email']))){
+		header('Location: layout.php?');
+	}
 include 'servidor.php';
 include ("seguridad.php");
 $conn = new mysqli($server, $user, $pass, $basededatos);

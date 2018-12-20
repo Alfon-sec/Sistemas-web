@@ -1,10 +1,9 @@
 <?php
-include ("seguridad.php");
 //incluimos la clase nusoap.php
-require_once('../../nusoap-0.9.5/lib/nusoap.php');
-require_once('../../nusoap-0.9.5/lib/class.wsdlcache.php');
+require_once('nusoap-0.9.5/lib/nusoap.php');
+require_once('nusoap-0.9.5/lib/class.wsdlcache.php');
 //creamos el objeto de tipo soap_server
-$ns="http://localhost/nusoap-0.9.5/samples";
+$ns="nusoap-0.9.5/samples";
 $server = new soap_server;
 $server->configureWSDL('contras',$ns);
 $server->wsdl->schemaTargetNamespace=$ns;
