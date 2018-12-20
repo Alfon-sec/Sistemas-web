@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="tipo_contenido" content="text/html;" http-equiv="content-type" charset="utf-8">
+	<title>Pregunta</title>
+</head>
+<body>
+<form id="fpreguntas" name='fpreguntas' action='InsertarPregunta.php'>
+<h1 align="center"> Prengunta </h1><br>
+
+ <li>
+     <label>Direccion de correo*:</label>
+     <input type="text" name="correo" id="correo" placeholder="correo" >
+</li><br>
+
+ <li>
+     <label>Pregunta*:</label>
+     <input type="text" name="Pregunta" id="Pregunta" placeholder="Pregunta" >
+</li><br>
+
+ <li>
+     <label>Respuesta correcta*:</label>
+     <input type="text" name="RC" id="RC" placeholder="RC" >
+</li><br>
+
+<li>
+     <label>Respuesta incorrecta1*:</label>
+     <input type="text" name="RI1" id="RI1" placeholder="RI1" >
+</li><br>
+
+<li>
+     <label>Respuesta incorrecta2*:</label>
+     <input type="text" name="RI2" id="RI2" placeholder="RI2" >
+</li><br>
+
+<li>
+     <label>Respuesta incorrecta3*:</label>
+     <input type="text" name="RI3" id="RI3" placeholder="RI3" >
+</li><br>
+<li>
+	<label>Complejidad de la pregunta*:</label>
+    <input type="text" name="complejidad" id="complejidad"placeholder="0-5" >
+</li><br>
+
+<li>
+     <label>tema de la pregunta(p.e=html)*:</label>
+     <input type="text" name="tema" id="tema" >
+</li><br>
+
+<input type="submit" id="enviar" value="enviar">
+
+<input type="text" id="validacion" size= "100" disabled/>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+	var patronemail= /^[a-z A-Z]+([0-9]{3})+@ikasle.ehu.eus$/;
+	var comp= /^([0-5]{1})$/;
+	 $("#enviar").click(function(){
+     	return enviamos();
+     });
+     function enviamos(){
+     				if(($("#Pregunta").val()!='') &&($("#RC").val()!='')&& ($("#RI1").val()!='')&& ($("#RI2").val()!='')&& ($("#RI3").val()!='')&& ($("#tema").val()!='')){
+     					$('#validacion').val('');
+						$('#validacion').css('background','white');
+						if($('#correo').val().match(patronemail)){
+							$('#validacion').val('');
+							$('#validacion').css('background','white');
+							if($("#complejidad").val().match(comp)){
+								$('#validacion').val('');
+								$('#validacion').css('background','white');
+								//$(location).attr('href','prueba.php');
+								return true;
+							}
+							else{
+								$('#validacion').val('complejidad entre 0-5');
+								$('#validacion').css('background','red');
+          						$('#validacion').css('color','black');	
+          						return false;
+							}
+						}
+						else{
+							 $('#validacion').val(' el correo tiene que tener formato EHU/UPV');
+							 $('#validacion').css('background','red');
+          					 $('#validacion').css('color','black');	
+          					 return false;	
+						}
+					}
+					else{
+						$('#validacion').val(' completa todos los campos obligatorios');
+						$('#validacion').css('background','red');
+          				$('#validacion').css('color','black');	
+          				return false;
+					}
+					
+	}
+			
+</script>
+</form>
+</body>
+</html>
